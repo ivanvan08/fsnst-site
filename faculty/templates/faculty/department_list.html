@@ -1,0 +1,53 @@
+{% extends "faculty/base.html" %}
+{% load static %}
+{% block title %}
+  Кафедри — Факультет соціальних наук та соціальних технологій НаУКМА
+{% endblock title %}
+{% block content %}
+  <div class="page-header">
+    <div class="header-breadcrumbs">
+      <a href="{% url 'home' %}" class="breadcrumb-link">← Головна</a>
+    </div>
+    <h1 class="page-title">Кафедри факультету</h1>
+    <p class="page-subtitle">Структурні підрозділи та випускові кафедри ФСНСТ</p>
+  </div>
+  <div class="department-grid">
+    {% for department in departments %}
+      <article class="card dept-card">
+        <h2 class="dept-title">
+          <a href="{% url 'department_detail' department.id %}" class="title-link">{{ department.name }}</a>
+        </h2>
+        <div class="dept-head-box">
+          <span class="meta-label">Завідувач кафедри:</span>
+          <span class="meta-value">{{ department.head|default:"—" }}</span>
+        </div>
+        <div class="dept-programs-section">
+          <h3 class="dept-programs-heading">Випускові програми:</h3>
+          {% with programs=department.programs.all %}
+            {% if programs %}
+              <ul class="dept-program-list">
+                {% for prog in programs %}
+                  <li class="dept-program-item">
+                    <a href="{% url 'program_detail' prog.id %}" class="prog-link">
+                      <span class="badge badge-code-sm">{{ prog.code }}</span>
+                      <span class="prog-name">{{ prog.name }}</span>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="empty-inline">Немає закріплених програм.</p>
+            {% endif %}
+          {% endwith %}
+        </div>
+        <div class="card-link-wrapper">
+          <a href="{% url 'department_detail' department.id %}" class="btn-text">Детальніше про кафедру →</a>
+        </div>
+      </article>
+    {% empty %}
+      <div class="empty-state">
+        <p>Наразі кафедри відсутні в базі даних.</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
