@@ -16,6 +16,10 @@
         <h2 class="dept-title">{{ exchange.university }}</h2>
         <p>{{ exchange.description }}</p>
         <div class="dept-head-box">
+          <span class="meta-label">Країна:</span>
+          <span class="meta-value">{{ exchange.country|default:"—" }}</span>
+        </div>
+        <div class="dept-head-box">
           <span class="meta-label">Мови навчання:</span>
           <span class="meta-value">{{ exchange.languages }}</span>
         </div>
