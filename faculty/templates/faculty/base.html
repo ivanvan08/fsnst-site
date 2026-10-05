@@ -36,6 +36,10 @@
               <a href="{% url 'program_list' %}"
                  class="nav-link{% if request.resolver_match.url_name == 'program_list' or request.resolver_match.url_name == 'program_detail' %} active{% endif %}">Спеціальності</a>
             </li>
+            <li class="nav-item">
+              <a href="{% url 'exchange_list' %}"
+                 class="nav-link{% if request.resolver_match.url_name == 'exchange_list' %} active{% endif %}">Обмін</a>
+            </li>
           </ul>
         </nav>
       </div>

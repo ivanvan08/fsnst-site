@@ -12,4 +12,5 @@ urlpatterns = [
         views.department_detail,
         name="department_detail",
     ),
+    path("exchange/", views.exchange_list, name="exchange_list"),
 ]

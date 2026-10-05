@@ -1,0 +1,37 @@
+{% extends "faculty/base.html" %}
+{% block title %}
+  Програми обміну — Факультет соціальних наук та соціальних технологій НаУКМА
+{% endblock title %}
+{% block content %}
+  <div class="page-header">
+    <div class="header-breadcrumbs">
+      <a href="{% url 'home' %}" class="breadcrumb-link">← Головна</a>
+    </div>
+    <h1 class="page-title">Програми академічного обміну</h1>
+    <p class="page-subtitle">Семестр навчання в університетах-партнерах</p>
+  </div>
+  <div class="department-grid">
+    {% for exchange in exchanges %}
+      <article class="card dept-card">
+        <h2 class="dept-title">{{ exchange.university }}</h2>
+        <p>{{ exchange.description }}</p>
+        <div class="dept-head-box">
+          <span class="meta-label">Мови навчання:</span>
+          <span class="meta-value">{{ exchange.languages }}</span>
+        </div>
+        <div class="dept-head-box">
+          <span class="meta-label">Кількість місць:</span>
+          <span class="meta-value">{{ exchange.seats }}</span>
+        </div>
+        <div class="dept-head-box">
+          <span class="meta-label">Дедлайн подачі:</span>
+          <span class="meta-value">{{ exchange.deadline|date:"d.m.Y" }}</span>
+        </div>
+      </article>
+    {% empty %}
+      <div class="empty-state">
+        <p>Наразі програм обміну немає.</p>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock content %}
