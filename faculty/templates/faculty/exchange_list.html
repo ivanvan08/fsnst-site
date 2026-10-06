@@ -14,6 +14,11 @@
     {% for exchange in exchanges %}
       <article class="card dept-card">
         <h2 class="dept-title">{{ exchange.university }}</h2>
+        {% if exchange.is_open %}
+          <span class="badge status-open">Прийом триває</span>
+        {% else %}
+          <span class="badge status-closed">Прийом завершено</span>
+        {% endif %}
         <p>{{ exchange.description }}</p>
         <div class="dept-head-box">
           <span class="meta-label">Країна:</span>

@@ -268,6 +268,20 @@ a:hover {
   border-radius: var(--radius-pill);
 }
 
+.status-open {
+  background-color: #e3f6ea;
+  color: #1b7a3d;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.status-closed {
+  background-color: #f1f3f7;
+  color: var(--color-muted);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
 .badge-dept {
   background-color: #f1f3f7;
   color: var(--color-text);
