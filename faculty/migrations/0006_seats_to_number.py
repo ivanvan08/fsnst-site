@@ -16,6 +16,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        # Rollback cannot restore the original wording ("2 місця", "до 4"):
+        # the column becomes text again but keeps only the digits.
         migrations.RunPython(keep_only_number, reverse_code=migrations.RunPython.noop),
         migrations.AlterField(
             model_name="exchangeprogram",
