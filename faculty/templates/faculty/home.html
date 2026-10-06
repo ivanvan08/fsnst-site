@@ -1,0 +1,61 @@
+{% extends "faculty/base.html" %}
+{% load static %}
+{% block title %}
+  Головна — Факультет соціальних наук та соціальних технологій НаУКМА
+{% endblock title %}
+{% block content %}
+  {% if info %}
+    <section class="hero-section">
+      <div class="hero-badge">Факультет НаУКМА</div>
+      <h1 class="hero-title">{{ info.name }}</h1>
+      <div class="hero-desc">{{ info.description|linebreaks }}</div>
+    </section>
+    <section class="info-grid">
+      <div class="card card-accent">
+        <h2 class="section-title">Розділи сайту</h2>
+        <div class="card-actions">
+          <a href="{% url 'department_list' %}" class="btn btn-primary">Кафедри факультету</a>
+          <a href="{% url 'program_list' %}" class="btn btn-secondary">Освітні програми</a>
+        </div>
+      </div>
+      <div class="card">
+        <h2 class="section-title">Контактна інформація</h2>
+        <dl class="contact-list">
+          <div class="contact-item">
+            <dt class="contact-label">Адреса</dt>
+            <dd class="contact-value">
+              {{ info.address }}
+            </dd>
+          </div>
+          <div class="contact-item">
+            <dt class="contact-label">Телефон</dt>
+            <dd class="contact-value">
+              <a href="tel:{{ info.phone }}">{{ info.phone }}</a>
+            </dd>
+          </div>
+          <div class="contact-item">
+            <dt class="contact-label">Електронна пошта</dt>
+            <dd class="contact-value">
+              <a href="mailto:{{ info.email }}">{{ info.email }}</a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+  {% else %}
+    <section class="hero-section">
+      <div class="hero-badge">Факультет НаУКМА</div>
+      <h1 class="hero-title">Факультет соціальних наук та соціальних технологій</h1>
+      <div class="hero-desc">
+        <p>Інформація про факультет наразі оновлюється.</p>
+      </div>
+    </section>
+    <div class="empty-state">
+      <p>Дані про факультет тимчасово недоступні в базі даних.</p>
+      <div class="empty-actions">
+        <a href="{% url 'department_list' %}" class="btn btn-primary">Переглянути кафедри</a>
+        <a href="{% url 'program_list' %}" class="btn btn-secondary">Переглянути спеціальності</a>
+      </div>
+    </div>
+  {% endif %}
+{% endblock content %}

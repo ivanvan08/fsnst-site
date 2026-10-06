@@ -1,0 +1,80 @@
+{% extends "faculty/base.html" %}
+{% load static %}
+{% block title %}
+  {{ department.name }} — ФСНСТ НаУКМА
+{% endblock title %}
+{% block content %}
+  <nav class="breadcrumbs" aria-label="Шлях">
+    <a href="{% url 'home' %}" class="breadcrumb-link">Головна</a>
+    <span class="breadcrumb-separator">/</span>
+    <a href="{% url 'department_list' %}" class="breadcrumb-link">Кафедри</a>
+    <span class="breadcrumb-separator">/</span>
+    <span class="breadcrumb-current">{{ department.name }}</span>
+  </nav>
+  <article class="detail-container">
+    <header class="detail-header">
+      <div class="header-badges">
+        <span class="badge badge-dept">Кафедра факультету</span>
+      </div>
+      <h1 class="detail-title">{{ department.name }}</h1>
+      <div class="dept-lead-box">
+        <span class="meta-label">Завідувач кафедри:</span>
+        <span class="meta-value">{{ department.head|default:"—" }}</span>
+      </div>
+    </header>
+    <div class="dept-sections">
+      <section class="card detail-card">
+        <h2 class="section-title">Випускові освітні програми</h2>
+        {% with programs=department.programs.all %}
+          {% if programs %}
+            <ul class="dept-program-cards">
+              {% for prog in programs %}
+                <li class="dept-program-card-item">
+                  <a href="{% url 'program_detail' prog.id %}" class="program-anchor">
+                    <span class="badge badge-code">{{ prog.code }}</span>
+                    <span class="program-anchor-name">{{ prog.name }}</span>
+                    <span class="program-anchor-arrow">→</span>
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p class="empty-inline">За кафедрою наразі не закріплено освітніх програм.</p>
+          {% endif %}
+        {% endwith %}
+      </section>
+      <section class="card detail-card">
+        <h2 class="section-title">Викладацький склад кафедри</h2>
+        {% with teachers=department.teachers.all %}
+          {% if teachers %}
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th scope="col">ПІБ викладача</th>
+                    <th scope="col">Посада</th>
+                    <th scope="col">Науковий ступінь / вчене звання</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for teacher in teachers %}
+                    <tr>
+                      <td class="table-name">{{ teacher.name }}</td>
+                      <td class="table-position">{{ teacher.position }}</td>
+                      <td class="table-degree">{{ teacher.degree|default:"—" }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <p class="empty-inline">Інформація про викладачів кафедри наразі відсутня.</p>
+          {% endif %}
+        {% endwith %}
+      </section>
+    </div>
+    <div class="back-action">
+      <a href="{% url 'department_list' %}" class="btn-back">← Всі кафедри</a>
+    </div>
+  </article>
+{% endblock content %}

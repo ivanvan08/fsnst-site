@@ -1,0 +1,72 @@
+{% extends "faculty/base.html" %}
+{% load static %}
+{% block title %}
+  {{ program.name }} ({{ program.code }}) — ФСНСТ НаУКМА
+{% endblock title %}
+{% block content %}
+  <nav class="breadcrumbs" aria-label="Шлях">
+    <a href="{% url 'home' %}" class="breadcrumb-link">Головна</a>
+    <span class="breadcrumb-separator">/</span>
+    <a href="{% url 'program_list' %}" class="breadcrumb-link">Спеціальності</a>
+    <span class="breadcrumb-separator">/</span>
+    <span class="breadcrumb-current">{{ program.code }}</span>
+  </nav>
+  <article class="detail-container">
+    <header class="detail-header">
+      <div class="header-badges">
+        <span class="badge badge-code">{{ program.code }}</span>
+        {% if program.department %}
+          <a href="{% url 'department_detail' program.department.id %}"
+             class="badge badge-dept">Кафедра: {{ program.department.name }}</a>
+        {% endif %}
+      </div>
+      <h1 class="detail-title">{{ program.name }}</h1>
+    </header>
+    <div class="detail-grid">
+      <div class="detail-main">
+        <section class="card detail-card">
+          <h2 class="section-title">Опис освітньої програми</h2>
+          <div class="detail-text">{{ program.description|linebreaks }}</div>
+        </section>
+        {% if program.disciplines %}
+          <section class="card detail-card">
+            <h2 class="section-title">Дисципліни програми</h2>
+            <div class="discipline-list-container">{{ program.disciplines|linebreaksbr }}</div>
+          </section>
+        {% endif %}
+      </div>
+      <aside class="detail-sidebar">
+        <div class="card sidebar-card">
+          <h3 class="sidebar-title">Координатор програми</h3>
+          <div class="coordinator-profile">
+            <p class="coordinator-fullname">{{ program.coordinator_name }}</p>
+            {% if program.coordinator_contact %}
+              <div class="coordinator-meta">
+                <span class="meta-label">Контакти:</span>
+                <span class="meta-value">{{ program.coordinator_contact }}</span>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        {% if program.department %}
+          <div class="card sidebar-card">
+            <h3 class="sidebar-title">Випускова кафедра</h3>
+            <p class="sidebar-text">
+              <strong>{{ program.department.name }}</strong>
+            </p>
+            {% if program.department.head %}
+              <p class="sidebar-meta">Завідувач: {{ program.department.head }}</p>
+            {% endif %}
+            <div class="sidebar-action">
+              <a href="{% url 'department_detail' program.department.id %}"
+                 class="btn btn-secondary btn-sm">Сторінка кафедри →</a>
+            </div>
+          </div>
+        {% endif %}
+        <div class="back-action">
+          <a href="{% url 'program_list' %}" class="btn-back">← Всі спеціальності</a>
+        </div>
+      </aside>
+    </div>
+  </article>
+{% endblock content %}

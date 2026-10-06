@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% block title %}
+        ФСНСТ НаУКМА
+      {% endblock title %}
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'faculty/css/style.css' %}">
+  </head>
+  <body class="site-body">
+    <header class="site-header">
+      <div class="site-container header-container">
+        <a href="{% url 'home' %}" class="header-brand">
+          <span class="brand-faculty">ФСНСТ</span>
+          <span class="brand-sub">Факультет соціальних наук та соціальних технологій НаУКМА</span>
+        </a>
+        <nav class="header-nav" aria-label="Основна навігація">
+          <ul class="nav-list">
+            <li class="nav-item">
+              <a href="{% url 'home' %}"
+                 class="nav-link{% if request.resolver_match.url_name == 'home' %} active{% endif %}">Головна</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'department_list' %}"
+                 class="nav-link{% if request.resolver_match.url_name == 'department_list' or request.resolver_match.url_name == 'department_detail' %} active{% endif %}">Кафедри</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'program_list' %}"
+                 class="nav-link{% if request.resolver_match.url_name == 'program_list' or request.resolver_match.url_name == 'program_detail' %} active{% endif %}">Спеціальності</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'exchange_list' %}"
+                 class="nav-link{% if request.resolver_match.url_name == 'exchange_list' %} active{% endif %}">Обмін</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main class="site-main">
+      <div class="site-container main-container">
+        {% block content %}
+        {% endblock content %}
+      </div>
+    </main>
+    <footer class="site-footer">
+      <div class="site-container footer-container">
+        <div class="footer-info">
+          <p class="footer-title">Факультет соціальних наук та соціальних технологій НаУКМА</p>
+          <p class="footer-sub">Національний університет «Києво-Могилянська академія»</p>
+        </div>
+        <div class="footer-copy">
+          <p>© {% now "Y" %} ФСНСТ НаУКМА. Всі права захищено.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
